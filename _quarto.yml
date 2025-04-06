@@ -3,21 +3,18 @@ project:
   output-dir: docs
 
 website:
-  title: "yih' Website"
+  title: "Yihang's Website"
   navbar:
     left:
       - href: index.qmd
         text: About
-      - resume.qmd
+      - href: resume.qmd
+        text: Resume
       - href: blog.qmd
         text: Projects
 
 format:
   html:
-    theme:
-      - cosmo
+    theme: cosmo
     css: styles.css
-    tc: trueo
-
-
-
+    toc: true
