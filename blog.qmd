@@ -1,11 +1,9 @@
 ---
 title: "My Projects"
-listings:
-  contents:blogs 
+listing:
   type: grid
+  contents: blog
   sort: "date desc"
-  categories: false |
-
-
-
+  categories: false
 ---
+
