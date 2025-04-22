@@ -2,12 +2,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.5.55">
+<meta name="generator" content="quarto-1.7.5">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Yihang Huang">
+<meta name="dcterms.date" content="2025-04-22">
 
-<title>Yihang Huang – Yihang’s Website</title>
+<title>A Replication of Karlan and List (2007) – Yihang’s Website</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -33,11 +35,12 @@ ul.task-list li input[type="checkbox"] {
 <script src="../../site_libs/quarto-html/quarto.js"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-ff4371ef257df69894857e99c6ad0d06.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-5171955293d79137c5e4019e7ad65a11.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -70,7 +73,7 @@ ul.task-list li input[type="checkbox"] {
 <link rel="stylesheet" href="../../styles.css">
 </head>
 
-<body class="nav-fixed fullcontent">
+<body class="nav-fixed">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -110,34 +113,375 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data">Data</a>
+  <ul class="collapse">
+  <li><a href="#description" id="toc-description" class="nav-link" data-scroll-target="#description">Description</a></li>
+  <li><a href="#balance-test" id="toc-balance-test" class="nav-link" data-scroll-target="#balance-test">Balance Test</a></li>
+  </ul></li>
+  <li><a href="#experimental-results" id="toc-experimental-results" class="nav-link" data-scroll-target="#experimental-results">Experimental Results</a>
+  <ul class="collapse">
+  <li><a href="#charitable-contribution-made" id="toc-charitable-contribution-made" class="nav-link" data-scroll-target="#charitable-contribution-made">Charitable Contribution Made</a></li>
+  <li><a href="#differences-between-match-rates" id="toc-differences-between-match-rates" class="nav-link" data-scroll-target="#differences-between-match-rates">Differences between Match Rates</a></li>
+  <li><a href="#size-of-charitable-contribution" id="toc-size-of-charitable-contribution" class="nav-link" data-scroll-target="#size-of-charitable-contribution">Size of Charitable Contribution</a></li>
+  </ul></li>
+  <li><a href="#simulation-experiment" id="toc-simulation-experiment" class="nav-link" data-scroll-target="#simulation-experiment">Simulation Experiment</a>
+  <ul class="collapse">
+  <li><a href="#law-of-large-numbers" id="toc-law-of-large-numbers" class="nav-link" data-scroll-target="#law-of-large-numbers">Law of Large Numbers</a></li>
+  <li><a href="#central-limit-theorem" id="toc-central-limit-theorem" class="nav-link" data-scroll-target="#central-limit-theorem">Central Limit Theorem</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
 <!-- main -->
-<div class="quarto-about-jolla">
-  <img src="images/hyh.jpg" class="about-image
-  round " style="height: 15em; width: 15em;">
- <header id="title-block-header" class="quarto-title-block default">
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Yihang Huang</h1>
+<h1 class="title">A Replication of Karlan and List (2007)</h1>
 </div>
+
+
+
 <div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Yihang Huang </p>
+          </div>
   </div>
-</header><main class="content" id="quarto-document-content">
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">April 22, 2025</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
 
 
-</main> 
-  <hr class="about-sep">
-   <div class="about-links">
-  <a href="mailto:yih105@ucsd.edu" class="about-link" rel="" target="">
-    <i class="bi bi-envelope"></i>
-     <span class="about-link-text"></span>
-  </a>
-  <a href="https://www.linkedin.com/in/yihang-huang-367769286/" class="about-link" rel="" target="">
-    <i class="bi bi-linkedin"></i>
-     <span class="about-link-text"></span>
-  </a>
+</header>
+
+
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>Dean Karlan at Yale and John List at the University of Chicago conducted a large-scale <strong>natural field experiment</strong> to test the effectiveness of different fundraising strategies, specifically focusing on the role of <strong>matching grants</strong> in charitable giving. The study was published in the <em>American Economic Review</em> in 2007.</p>
+<p>To conduct the experiment, they collaborated with a politically liberal nonprofit organization in the United States. They sent direct mail solicitations to <strong>50,083 previous donors</strong>, randomly assigning them to one of several treatment groups:</p>
+<ul>
+<li>A <strong>control group</strong> that received a standard fundraising letter with no mention of a matching gift.</li>
+<li>Several <strong>treatment groups</strong>, which received letters mentioning a <strong>matching grant</strong> from a “concerned fellow member,” with variations in:
+<ul>
+<li>The <strong>match ratio</strong>: $1:$1, $2:$1, or $3:$1.</li>
+<li>The <strong>maximum matching grant amount</strong>: $25,000, $50,000, or $100,000.</li>
+<li>The <strong>suggested donation amount</strong>: three levels relative to the recipient’s historical prior contribution.</li>
+</ul></li>
+</ul>
+<p>Each letter was otherwise identical in content and conformed to the nonprofit’s usual style and language. By using real donation requests and real monetary stakes, this experiment goes beyond hypothetical survey-based approaches and offers insight into <strong>actual donor behavior</strong> in a natural setting.</p>
+<p>This project seeks to replicate their findings using the publicly available data, focusing on the following main outcomes: - The <strong>response rate</strong> (proportion of individuals who donated). - The <strong>revenue per solicitation</strong> (total amount raised divided by number of solicitations). - The effect of <strong>different match ratios</strong> on both response rate and revenue. - Whether <strong>larger match ratios</strong> lead to proportionally greater donations.</p>
+<p>The original article and supporting dataset are available through the <a href="https://www.aeaweb.org/articles?id=10.1257/aer.97.5.1774">AEA website</a> and from Innovations for Poverty Action via <a href="https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/27853&amp;version=4.2">Harvard’s Dataverse</a>.</p>
+<p>This project seeks to replicate their results.</p>
+</section>
+<section id="data" class="level2">
+<h2 class="anchored" data-anchor-id="data">Data</h2>
+<section id="description" class="level3">
+<h3 class="anchored" data-anchor-id="description">Description</h3>
+<p>The dataset consists of one row per previous donor who received a fundraising letter. Key variables include whether the individual received a treatment letter or not (‘treatment’), the size of the matching ratio (‘ratio’), and donation outcomes (‘gave’, ‘amount’). It also includes demographic and behavioral variables such as prior donation frequency (freq), recency (‘mrm2’), and location-level characteristics (e.g., ‘red0’, ‘pwhite’).</p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Variable Definitions
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 24%">
+<col style="width: 75%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Variable</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>treatment</code></td>
+<td>Treatment</td>
+</tr>
+<tr class="even">
+<td><code>control</code></td>
+<td>Control</td>
+</tr>
+<tr class="odd">
+<td><code>ratio</code></td>
+<td>Match ratio</td>
+</tr>
+<tr class="even">
+<td><code>ratio2</code></td>
+<td>2:1 match ratio</td>
+</tr>
+<tr class="odd">
+<td><code>ratio3</code></td>
+<td>3:1 match ratio</td>
+</tr>
+<tr class="even">
+<td><code>size</code></td>
+<td>Match threshold</td>
+</tr>
+<tr class="odd">
+<td><code>size25</code></td>
+<td>$25,000 match threshold</td>
+</tr>
+<tr class="even">
+<td><code>size50</code></td>
+<td>$50,000 match threshold</td>
+</tr>
+<tr class="odd">
+<td><code>size100</code></td>
+<td>$100,000 match threshold</td>
+</tr>
+<tr class="even">
+<td><code>sizeno</code></td>
+<td>Unstated match threshold</td>
+</tr>
+<tr class="odd">
+<td><code>ask</code></td>
+<td>Suggested donation amount</td>
+</tr>
+<tr class="even">
+<td><code>askd1</code></td>
+<td>Suggested donation was highest previous contribution</td>
+</tr>
+<tr class="odd">
+<td><code>askd2</code></td>
+<td>Suggested donation was 1.25 x highest previous contribution</td>
+</tr>
+<tr class="even">
+<td><code>askd3</code></td>
+<td>Suggested donation was 1.50 x highest previous contribution</td>
+</tr>
+<tr class="odd">
+<td><code>ask1</code></td>
+<td>Highest previous contribution (for suggestion)</td>
+</tr>
+<tr class="even">
+<td><code>ask2</code></td>
+<td>1.25 x highest previous contribution (for suggestion)</td>
+</tr>
+<tr class="odd">
+<td><code>ask3</code></td>
+<td>1.50 x highest previous contribution (for suggestion)</td>
+</tr>
+<tr class="even">
+<td><code>amount</code></td>
+<td>Dollars given</td>
+</tr>
+<tr class="odd">
+<td><code>gave</code></td>
+<td>Gave anything</td>
+</tr>
+<tr class="even">
+<td><code>amountchange</code></td>
+<td>Change in amount given</td>
+</tr>
+<tr class="odd">
+<td><code>hpa</code></td>
+<td>Highest previous contribution</td>
+</tr>
+<tr class="even">
+<td><code>ltmedmra</code></td>
+<td>Small prior donor: last gift was less than median $35</td>
+</tr>
+<tr class="odd">
+<td><code>freq</code></td>
+<td>Number of prior donations</td>
+</tr>
+<tr class="even">
+<td><code>years</code></td>
+<td>Number of years since initial donation</td>
+</tr>
+<tr class="odd">
+<td><code>year5</code></td>
+<td>At least 5 years since initial donation</td>
+</tr>
+<tr class="even">
+<td><code>mrm2</code></td>
+<td>Number of months since last donation</td>
+</tr>
+<tr class="odd">
+<td><code>dormant</code></td>
+<td>Already donated in 2005</td>
+</tr>
+<tr class="even">
+<td><code>female</code></td>
+<td>Female</td>
+</tr>
+<tr class="odd">
+<td><code>couple</code></td>
+<td>Couple</td>
+</tr>
+<tr class="even">
+<td><code>state50one</code></td>
+<td>State tag: 1 for one observation of each of 50 states; 0 otherwise</td>
+</tr>
+<tr class="odd">
+<td><code>nonlit</code></td>
+<td>Nonlitigation</td>
+</tr>
+<tr class="even">
+<td><code>cases</code></td>
+<td>Court cases from state in 2004-5 in which organization was involved</td>
+</tr>
+<tr class="odd">
+<td><code>statecnt</code></td>
+<td>Percent of sample from state</td>
+</tr>
+<tr class="even">
+<td><code>stateresponse</code></td>
+<td>Proportion of sample from the state who gave</td>
+</tr>
+<tr class="odd">
+<td><code>stateresponset</code></td>
+<td>Proportion of treated sample from the state who gave</td>
+</tr>
+<tr class="even">
+<td><code>stateresponsec</code></td>
+<td>Proportion of control sample from the state who gave</td>
+</tr>
+<tr class="odd">
+<td><code>stateresponsetminc</code></td>
+<td>stateresponset - stateresponsec</td>
+</tr>
+<tr class="even">
+<td><code>perbush</code></td>
+<td>State vote share for Bush</td>
+</tr>
+<tr class="odd">
+<td><code>close25</code></td>
+<td>State vote share for Bush between 47.5% and 52.5%</td>
+</tr>
+<tr class="even">
+<td><code>red0</code></td>
+<td>Red state</td>
+</tr>
+<tr class="odd">
+<td><code>blue0</code></td>
+<td>Blue state</td>
+</tr>
+<tr class="even">
+<td><code>redcty</code></td>
+<td>Red county</td>
+</tr>
+<tr class="odd">
+<td><code>bluecty</code></td>
+<td>Blue county</td>
+</tr>
+<tr class="even">
+<td><code>pwhite</code></td>
+<td>Proportion white within zip code</td>
+</tr>
+<tr class="odd">
+<td><code>pblack</code></td>
+<td>Proportion black within zip code</td>
+</tr>
+<tr class="even">
+<td><code>page18_39</code></td>
+<td>Proportion age 18-39 within zip code</td>
+</tr>
+<tr class="odd">
+<td><code>ave_hh_sz</code></td>
+<td>Average household size within zip code</td>
+</tr>
+<tr class="even">
+<td><code>median_hhincome</code></td>
+<td>Median household income within zip code</td>
+</tr>
+<tr class="odd">
+<td><code>powner</code></td>
+<td>Proportion house owner within zip code</td>
+</tr>
+<tr class="even">
+<td><code>psch_atlstba</code></td>
+<td>Proportion who finished college within zip code</td>
+</tr>
+<tr class="odd">
+<td><code>pop_propurban</code></td>
+<td>Proportion of population urban within zip code</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
- <!-- /main -->
+</div>
+</section>
+<section id="balance-test" class="level3">
+<h3 class="anchored" data-anchor-id="balance-test">Balance Test</h3>
+<p>As an ad hoc test of the randomization mechanism, I provide a series of tests that compare aspects of the treatment and control groups to assess whether they are statistically significantly different from one another.</p>
+<p>To test the integrity of the randomization, I compare pre-treatment characteristics such as ‘mrm2’, ‘female’, and ‘freq’ between the treatment and control groups.</p>
+<p>Using both Welch’s t-tests and bivariate regressions, I confirm that none of the selected covariates are statistically significantly different at the 5% level. These results match Table 1 of Karlan and List (2007), indicating that the treatment was successfully randomized and there are no meaningful pre-treatment differences.</p>
+</section>
+</section>
+<section id="experimental-results" class="level2">
+<h2 class="anchored" data-anchor-id="experimental-results">Experimental Results</h2>
+<section id="charitable-contribution-made" class="level3">
+<h3 class="anchored" data-anchor-id="charitable-contribution-made">Charitable Contribution Made</h3>
+<p>First, I analyze whether matched donations lead to an increased response rate of making a donation.</p>
+<p>A barplot comparing the response rates between groups shows that the treatment group had a higher donation rate than the control group.</p>
+<p>A Welch’s t-test confirms this difference is statistically significant (p &lt; 0.01), and a bivariate linear regression of ‘gave ~ treatment’ returns a positive and significant coefficient. This matches the finding in Table 2a, Panel A.</p>
+<p>A probit regression, as shown in Table 3 Column 1 of the original study, confirms that being in the treatment group significantly increases the probability of donating. The coefficient on treatment is around 0.325, and statistically significant at the 1% level.</p>
+<p>Interpretation: These results show that offering a matching grant increases the likelihood of donating. People respond not just to financial incentives, but also to social and framing cues that increase perceived impact.</p>
+</section>
+<section id="differences-between-match-rates" class="level3">
+<h3 class="anchored" data-anchor-id="differences-between-match-rates">Differences between Match Rates</h3>
+<p>Next, I assess the effectiveness of different sizes of matched donations on the response rate.</p>
+<p>Using t-tests, I find no statistically significant difference in response rates between the 1:1 and 2:1 match groups, nor between 2:1 and 3:1. This supports the authors’ observation that “increasing the match ratio above 1:1 does not further increase the probability that an individual gives.”</p>
+<p>In a regression of ‘gave ~ ratio1 + ratio2 + ratio3’, the coefficients are not statistically different from each other. Manually computing response rate differences from the data confirms this: the increase from 1:1 to 2:1 is about 0.0003, and from 2:1 to 3:1 is about -0.0002.</p>
+<p>Conclusion: Higher match ratios do not significantly increase the probability of giving, confirming that simply including a match matters more than its size.</p>
+</section>
+<section id="size-of-charitable-contribution" class="level3">
+<h3 class="anchored" data-anchor-id="size-of-charitable-contribution">Size of Charitable Contribution</h3>
+<p>In this subsection, I analyze the effect of the size of matched donation on the size of the charitable contribution.</p>
+<p>A regression of ‘amount ~ treatment’ shows a small, positive, and statistically significant effect of treatment on donation amount. However, when restricting to individuals who actually donated (‘gave == 1’), the coefficient becomes smaller and statistically insignificant.</p>
+<p>Histograms of donation amounts for the control and treatment groups (among givers only) show similar distributions, with nearly identical sample means.</p>
+<p>Interpretation: The treatment does not affect the size of donations once someone has decided to give. The causal impact lies in encouraging whether someone donates, not how much they give.</p>
+</section>
+</section>
+<section id="simulation-experiment" class="level2">
+<h2 class="anchored" data-anchor-id="simulation-experiment">Simulation Experiment</h2>
+<p>As a reminder of how the t-statistic “works,” in this section I use simulation to demonstrate the Law of Large Numbers and the Central Limit Theorem.</p>
+<p>Suppose the true distribution of respondents who do not get a charitable donation match is Bernoulli with probability p=0.018 that a donation is made.</p>
+<p>Further suppose that the true distribution of respondents who do get a charitable donation match of any size is Bernoulli with probability p=0.022 that a donation is made.</p>
+<section id="law-of-large-numbers" class="level3">
+<h3 class="anchored" data-anchor-id="law-of-large-numbers">Law of Large Numbers</h3>
+<p>I simulated 100,000 draws from the control distribution and 10,000 from the treatment distribution. I then computed 10,000 differences and plotted their cumulative average.</p>
+<p>The plot shows the cumulative average stabilizing around the true difference (0.004), consistent with the Law of Large Numbers: as sample size increases, the sample mean converges to the true mean.</p>
+</section>
+<section id="central-limit-theorem" class="level3">
+<h3 class="anchored" data-anchor-id="central-limit-theorem">Central Limit Theorem</h3>
+<p>I ran simulations with sample sizes of 50, 200, 500, and 1000. For each size, I drew 1000 samples and computed the difference in means. The resulting histograms become increasingly normal and concentrated as sample size increases.</p>
+<p>In small samples, the distribution is wide and skewed. At larger sizes, it becomes bell-shaped and centered near the true difference. Zero clearly moves from being in the middle (in small samples) to being in the tail (in larger samples).</p>
+<p>This demonstrates the Central Limit Theorem: the sampling distribution of the mean difference becomes approximately normal as sample size increases.</p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -158,6 +502,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
   toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
   const isCodeAnnotation = (el) => {
     for (const clz of el.classList) {
       if (clz.startsWith('code-annotation-')) {                     
@@ -213,8 +564,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   });
   clipboard.on('success', onCopySuccess);
   if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-    // For code content inside modals, clipBoardJS needs to be initialized with a container option
-    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
     const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
       text: getTextToCopy,
       container: window.document.getElementById('quarto-embedded-source-code-modal')
@@ -325,7 +674,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (window.Quarto?.typesetMath) {
         window.Quarto.typesetMath(note);
       }
-      // TODO in 1.5, we should make sure this works without a callout special case
       if (note.classList.contains("callout")) {
         return note.outerHTML;
       } else {
