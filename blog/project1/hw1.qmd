@@ -3,6 +3,7 @@ title: "A Replication of Karlan and List (2007)"
 author: "Yihang Huang"
 date: today
 callout-appearance: minimal # this hides the blue "i" icon on .callout-notes
+jupyter: python3
 ---
 
 
@@ -38,6 +39,13 @@ This project seeks to replicate their results.
 
 The dataset consists of one row per previous donor who received a fundraising letter. Key variables include whether the individual received a treatment letter or not ('treatment'), the size of the matching ratio ('ratio'), and donation outcomes ('gave', 'amount'). It also includes demographic and behavioral variables such as prior donation frequency (freq), recency ('mrm2'), and location-level characteristics (e.g., 'red0', 'pwhite').
 
+```{python}
+#| echo: false
+import pandas as pd
+
+df = pd.read_stata("karlan_list_2007.dta")
+df.head()
+```
 :::: {.callout-note collapse="true"}
 ### Variable Definitions
 
@@ -103,7 +111,6 @@ The dataset consists of one row per previous donor who received a fundraising le
 As an ad hoc test of the randomization mechanism, I provide a series of tests that compare aspects of the treatment and control groups to assess whether they are statistically significantly different from one another.
 
 To test the integrity of the randomization, I compare pre-treatment characteristics such as 'mrm2', 'female', and 'freq' between the treatment and control groups.
-
 ```{python}
 from scipy.stats import ttest_ind
 import statsmodels.formula.api as smf
@@ -113,8 +120,12 @@ control = df[df['treatment'] == 0]['mrm2']
 # T-test
 t_stat, p_val = ttest_ind(treat, control, equal_var=False)
 print(f"T-test: t = {t_stat:.3f}, p = {p_val:.3f}")
+```
 
 Using both Welch's t-tests and bivariate regressions, I confirm that none of the selected covariates are statistically significantly different at the 5% level. These results match Table 1 of Karlan and List (2007), indicating that the treatment was successfully randomized and there are no meaningful pre-treatment differences.
+```{python}
+model = smf.ols('mrm2 ~ treatment', data=df).fit()
+model.summary()
 ```
 
 
@@ -126,11 +137,36 @@ Using both Welch's t-tests and bivariate regressions, I confirm that none of the
 First, I analyze whether matched donations lead to an increased response rate of making a donation. 
 
 A barplot comparing the response rates between groups shows that the treatment group had a higher donation rate than the control group.
-
+```{python}
+#| echo: false
+import matplotlib.pyplot as plt
+response_rates = df.groupby('treatment')['gave'].mean()
+response_rates.plot(kind='bar', color=['gray', 'green'])
+plt.xticks([0, 1], ['Control', 'Treatment'])
+plt.ylabel('Proportion Donated')
+plt.title('Donation Rate by Group')
+plt.show()
+```
 A Welch's t-test confirms this difference is statistically significant (p < 0.01), and a bivariate linear regression of 'gave ~ treatment' returns a positive and significant coefficient. This matches the finding in Table 2a, Panel A.
-
+```{python}
+#| echo: false
+treat_gave = df[df['treatment'] == 1]['gave']
+control_gave = df[df['treatment'] == 0]['gave']
+t_stat, p_val = ttest_ind(treat_gave, control_gave, equal_var=False)
+print(f"T-test on 'gave': t = {t_stat:.4f}, p = {p_val:.4f}")
+model = smf.ols('gave ~ treatment', data=df).fit()
+model.summary()
+```
 A probit regression, as shown in Table 3 Column 1 of the original study, confirms that being in the treatment group significantly increases the probability of donating. The coefficient on treatment is around 0.325, and statistically significant at the 1% level.
+```{python}
+#| echo: false
+import statsmodels.api as sm
 
+X = sm.add_constant(df['treatment'])
+y = df['gave']
+probit_model = sm.Probit(y, X).fit()
+probit_model.summary()
+```
 Interpretation: These results show that offering a matching grant increases the likelihood of donating. People respond not just to financial incentives, but also to social and framing cues that increase perceived impact.
 
 
@@ -139,9 +175,26 @@ Interpretation: These results show that offering a matching grant increases the 
 Next, I assess the effectiveness of different sizes of matched donations on the response rate.
 
 Using t-tests, I find no statistically significant difference in response rates between the 1:1 and 2:1 match groups, nor between 2:1 and 3:1. This supports the authors' observation that "increasing the match ratio above 1:1 does not further increase the probability that an individual gives."
+```{python}
+#| echo: false
+gave_1 = df[(df['treatment'] == 1) & (df['ratio'] == 1)]['gave']
+gave_2 = df[(df['treatment'] == 1) & (df['ratio'] == 1)]['gave']
+gave_3 = df[(df['treatment'] == 1) & (df['ratio'] == 1)]['gave']
 
+print("1:1 vs 2:1:", ttest_ind(gave_1, gave_2, equal_var=False))
+print("2:1 vs 3:1:", ttest_ind(gave_2, gave_3, equal_var=False))
+```
 In a regression of 'gave ~ ratio1 + ratio2 + ratio3', the coefficients are not statistically different from each other. Manually computing response rate differences from the data confirms this: the increase from 1:1 to 2:1 is about 0.0003, and from 2:1 to 3:1 is about -0.0002.
+```{python}
+#| echo: false
+df_ratio = df[df['treatment'] == 1].copy()
+df_ratio['ratio1'] = (df_ratio['ratio'] == 1).astype(int)
+df_ratio['ratio2'] = (df_ratio['ratio'] == 2).astype(int)
+df_ratio['ratio3'] = (df_ratio['ratio'] == 3).astype(int)
 
+model = smf.ols('gave ~ ratio1 + ratio2 + ratio3', data=df_ratio).fit()
+model.summary()
+```
 Conclusion: Higher match ratios do not significantly increase the probability of giving, confirming that simply including a match matters more than its size.
 
 
@@ -150,9 +203,33 @@ Conclusion: Higher match ratios do not significantly increase the probability of
 In this subsection, I analyze the effect of the size of matched donation on the size of the charitable contribution.
 
 A regression of 'amount ~ treatment' shows a small, positive, and statistically significant effect of treatment on donation amount. However, when restricting to individuals who actually donated ('gave == 1'), the coefficient becomes smaller and statistically insignificant.
-
+```{python}
+model_amt = smf.ols('amount ~ treatment', data=df).fit()
+model_amt.summary()
+```
 Histograms of donation amounts for the control and treatment groups (among givers only) show similar distributions, with nearly identical sample means.
+```{python}
+#| echo: false
+df_pos = df[df['gave'] == 1]
+model_cond = smf.ols('amount ~ treatment', data=df_pos).fit()
+model_cond.summary()
+fig, axes = plt.subplots(1, 2, figsize=(12, 5), sharey=True)
 
+control_amt = df_pos[df_pos['treatment'] == 0]['amount']
+treat_amt = df_pos[df_pos['treatment'] == 1]['amount']
+
+axes[0].hist(control_amt, bins=30, color='skyblue')
+axes[0].axvline(control_amt.mean(), color='red', linestyle='dashed')
+axes[0].set_title('Control Group (Donated)')
+
+axes[1].hist(treat_amt, bins=30, color='lightgreen')
+axes[1].axvline(treat_amt.mean(), color='red', linestyle='dashed')
+axes[1].set_title('Treatment Group (Donated)')
+
+plt.tight_layout()
+plt.show()
+
+```
 Interpretation: The treatment does not affect the size of donations once someone has decided to give. The causal impact lies in encouraging whether someone donates, not how much they give.
 
 
@@ -169,7 +246,22 @@ Further suppose that the true distribution of respondents who do get a charitabl
 I simulated 100,000 draws from the control distribution and 10,000 from the treatment distribution. I then computed 10,000 differences and plotted their cumulative average.
 
 The plot shows the cumulative average stabilizing around the true difference (0.004), consistent with the Law of Large Numbers: as sample size increases, the sample mean converges to the true mean.
+```{python}
+import numpy as np
 
+control = np.random.binomial(1, 0.018, 100000)
+treatment = np.random.binomial(1, 0.022, 10000)
+diffs = treatment - control[:10000]
+cumulative_avg = np.cumsum(diffs) / np.arange(1, 10001)
+
+plt.figure()
+plt.plot(cumulative_avg)
+plt.axhline(0.004, color='red', linestyle='dashed')
+plt.title("LLN: Cumulative Average of Differences")
+plt.xlabel("Simulation Step")
+plt.ylabel("Cumulative Mean Difference")
+plt.show()
+```
 
 ### Central Limit Theorem
 
@@ -178,7 +270,24 @@ I ran simulations with sample sizes of 50, 200, 500, and 1000. For each size, I 
 In small samples, the distribution is wide and skewed. At larger sizes, it becomes bell-shaped and centered near the true difference. Zero clearly moves from being in the middle (in small samples) to being in the tail (in larger samples).
 
 This demonstrates the Central Limit Theorem: the sampling distribution of the mean difference becomes approximately normal as sample size increases.
+```{python}
+#| echo: false
+def simulate_diff(n):
+    return [np.random.binomial(1, 0.022, n).mean() - np.random.binomial(1, 0.018, n).mean() for _ in range(1000)]
 
+sample_sizes = [50, 200, 500, 1000]
+fig, axes = plt.subplots(2, 2, figsize=(12, 8))
+
+for ax, n in zip(axes.flatten(), sample_sizes):
+    data = simulate_diff(n)
+    ax.hist(data, bins=30, color='lightblue', edgecolor='black')
+    ax.axvline(0, color='red', linestyle='dashed')
+    ax.axvline(np.mean(data), color='green', linestyle='dashed')
+    ax.set_title(f"Sample Size = {n}")
+
+plt.tight_layout()
+plt.show()
+```
 
 
 
