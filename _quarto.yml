@@ -12,8 +12,7 @@ website:
         text: Resume
       - href: blog.qmd
         text: Projects
-      - href: hw1.qmd
-        text: Statistics
+
 format:
   html:
     theme: cosmo
