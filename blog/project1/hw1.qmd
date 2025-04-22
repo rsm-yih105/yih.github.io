@@ -104,22 +104,18 @@ As an ad hoc test of the randomization mechanism, I provide a series of tests th
 
 To test the integrity of the randomization, I compare pre-treatment characteristics such as 'mrm2', 'female', and 'freq' between the treatment and control groups.
 
-Using both Welch's t-tests and bivariate regressions, I confirm that none of the selected covariates are statistically significantly different at the 5% level. These results match Table 1 of Karlan and List (2007), indicating that the treatment was successfully randomized and there are no meaningful pre-treatment differences.
 ```{python}
-import statsmodels.formula.api as smf
 from scipy.stats import ttest_ind
-
-# Example variable: months since last donation
+import statsmodels.formula.api as smf
+# Subset the variable to compare
 treat = df[df['treatment'] == 1]['mrm2']
 control = df[df['treatment'] == 0]['mrm2']
-
 # T-test
 t_stat, p_val = ttest_ind(treat, control, equal_var=False)
 print(f"T-test: t = {t_stat:.3f}, p = {p_val:.3f}")
 
-# Linear regression
-model = smf.ols('mrm2 ~ treatment', data=df).fit()
-model.summary()
+Using both Welch's t-tests and bivariate regressions, I confirm that none of the selected covariates are statistically significantly different at the 5% level. These results match Table 1 of Karlan and List (2007), indicating that the treatment was successfully randomized and there are no meaningful pre-treatment differences.
+```
 
 
 
