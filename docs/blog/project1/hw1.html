@@ -232,7 +232,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="description" class="level3">
 <h3 class="anchored" data-anchor-id="description">Description</h3>
 <p>The dataset consists of one row per previous donor who received a fundraising letter. Key variables include whether the individual received a treatment letter or not (‘treatment’), the size of the matching ratio (‘ratio’), and donation outcomes (‘gave’, ‘amount’). It also includes demographic and behavioral variables such as prior donation frequency (freq), recency (‘mrm2’), and location-level characteristics (e.g., ‘red0’, ‘pwhite’).</p>
-<div id="2f0a4181" class="cell" data-execution_count="1">
+<div id="4489f443" class="cell" data-execution_count="1">
 <div class="cell-output cell-output-display" data-execution_count="1">
 <div>
 
@@ -630,7 +630,7 @@ Variable Definitions
 <h3 class="anchored" data-anchor-id="balance-test">Balance Test</h3>
 <p>As an ad hoc test of the randomization mechanism, I provide a series of tests that compare aspects of the treatment and control groups to assess whether they are statistically significantly different from one another.</p>
 <p>To test the integrity of the randomization, I compare pre-treatment characteristics such as ‘mrm2’, ‘female’, and ‘freq’ between the treatment and control groups.</p>
-<div id="729c10a7" class="cell" data-execution_count="2">
+<div id="0a6312f3" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> ttest_ind</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.formula.api <span class="im">as</span> smf</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Subset the variable to compare</span></span>
@@ -644,7 +644,7 @@ Variable Definitions
 </div>
 </div>
 <p>Using both Welch’s t-tests and bivariate regressions, I confirm that none of the selected covariates are statistically significantly different at the 5% level. These results match Table 1 of Karlan and List (2007), indicating that the treatment was successfully randomized and there are no meaningful pre-treatment differences.</p>
-<div id="3dd1d0fa" class="cell" data-execution_count="3">
+<div id="0aa69339" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> smf.ols(<span class="st">'mrm2 ~ treatment'</span>, data<span class="op">=</span>df).fit()</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>model.summary()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="3">
@@ -677,7 +677,7 @@ Variable Definitions
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">Time:</td>
-<td>16:46:27</td>
+<td>16:50:36</td>
 <td data-quarto-table-cell-role="th">Log-Likelihood:</td>
 <td>-1.9585e+05</td>
 </tr>
@@ -781,7 +781,7 @@ Variable Definitions
 <h3 class="anchored" data-anchor-id="charitable-contribution-made">Charitable Contribution Made</h3>
 <p>First, I analyze whether matched donations lead to an increased response rate of making a donation.</p>
 <p>A barplot comparing the response rates between groups shows that the treatment group had a higher donation rate than the control group.</p>
-<div id="2d1be98f" class="cell" data-execution_count="4">
+<div id="93288754" class="cell" data-execution_count="4">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -791,9 +791,9 @@ Variable Definitions
 </div>
 </div>
 <p>A Welch’s t-test confirms this difference is statistically significant (p &lt; 0.01), and a bivariate linear regression of ‘gave ~ treatment’ returns a positive and significant coefficient. This matches the finding in Table 2a, Panel A.</p>
-<div id="c152d422" class="cell" data-execution_count="5">
+<div id="8e9cf709" class="cell" data-execution_count="5">
 <div class="cell-output cell-output-stdout">
-<pre><code>T-test on 'gave': t = 3.2095, p = 0.0013</code></pre>
+<pre><code>T-test on 'gave': t = 3.2099, p = 0.0013</code></pre>
 </div>
 <div class="cell-output cell-output-display" data-execution_count="5">
 <table class="simpletable caption-top table table-sm table-striped small" data-quarto-postprocess="true">
@@ -815,29 +815,29 @@ Variable Definitions
 <td data-quarto-table-cell-role="th">Method:</td>
 <td>Least Squares</td>
 <td data-quarto-table-cell-role="th">F-statistic:</td>
-<td>9.618</td>
+<td>9.621</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">Date:</td>
 <td>Tue, 22 Apr 2025</td>
 <td data-quarto-table-cell-role="th">Prob (F-statistic):</td>
-<td>0.00193</td>
+<td>0.00192</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">Time:</td>
-<td>16:46:28</td>
+<td>16:50:36</td>
 <td data-quarto-table-cell-role="th">Log-Likelihood:</td>
-<td>26630.</td>
+<td>26629.</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">No. Observations:</td>
-<td>50083</td>
+<td>50082</td>
 <td data-quarto-table-cell-role="th">AIC:</td>
-<td>-5.326e+04</td>
+<td>-5.325e+04</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">Df Residuals:</td>
-<td>50081</td>
+<td>50080</td>
 <td data-quarto-table-cell-role="th">BIC:</td>
 <td>-5.324e+04</td>
 </tr>
@@ -872,7 +872,7 @@ Variable Definitions
 <td data-quarto-table-cell-role="th">Intercept</td>
 <td>0.0179</td>
 <td>0.001</td>
-<td>16.225</td>
+<td>16.224</td>
 <td>0.000</td>
 <td>0.016</td>
 <td>0.020</td>
@@ -881,7 +881,7 @@ Variable Definitions
 <td data-quarto-table-cell-role="th">treatment</td>
 <td>0.0042</td>
 <td>0.001</td>
-<td>3.101</td>
+<td>3.102</td>
 <td>0.002</td>
 <td>0.002</td>
 <td>0.007</td>
@@ -894,7 +894,7 @@ Variable Definitions
 <tbody>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">Omnibus:</td>
-<td>59814.280</td>
+<td>59812.651</td>
 <td data-quarto-table-cell-role="th">Durbin-Watson:</td>
 <td>2.005</td>
 </tr>
@@ -902,7 +902,7 @@ Variable Definitions
 <td data-quarto-table-cell-role="th">Prob(Omnibus):</td>
 <td>0.000</td>
 <td data-quarto-table-cell-role="th">Jarque-Bera (JB):</td>
-<td>4317152.727</td>
+<td>4316882.272</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">Skew:</td>
@@ -922,10 +922,10 @@ Variable Definitions
 </div>
 </div>
 <p>A probit regression, as shown in Table 3 Column 1 of the original study, confirms that being in the treatment group significantly increases the probability of donating. The coefficient on treatment is around 0.325, and statistically significant at the 1% level.</p>
-<div id="3c4dbbf2" class="cell" data-execution_count="6">
+<div id="39cac78a" class="cell" data-execution_count="6">
 <div class="cell-output cell-output-stdout">
 <pre><code>Optimization terminated successfully.
-         Current function value: 0.100443
+         Current function value: 0.100445
          Iterations 7</code></pre>
 </div>
 <div class="cell-output cell-output-display" data-execution_count="6">
@@ -936,13 +936,13 @@ Variable Definitions
 <td data-quarto-table-cell-role="th">Dep. Variable:</td>
 <td>gave</td>
 <td data-quarto-table-cell-role="th">No. Observations:</td>
-<td>50083</td>
+<td>50082</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">Model:</td>
 <td>Probit</td>
 <td data-quarto-table-cell-role="th">Df Residuals:</td>
-<td>50081</td>
+<td>50080</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">Method:</td>
@@ -954,11 +954,11 @@ Variable Definitions
 <td data-quarto-table-cell-role="th">Date:</td>
 <td>Tue, 22 Apr 2025</td>
 <td data-quarto-table-cell-role="th">Pseudo R-squ.:</td>
-<td>0.0009783</td>
+<td>0.0009786</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">Time:</td>
-<td>16:46:29</td>
+<td>16:50:37</td>
 <td data-quarto-table-cell-role="th">Log-Likelihood:</td>
 <td>-5030.5</td>
 </tr>
@@ -972,7 +972,7 @@ Variable Definitions
 <td data-quarto-table-cell-role="th">Covariance Type:</td>
 <td>nonrobust</td>
 <td data-quarto-table-cell-role="th">LLR p-value:</td>
-<td>0.001696</td>
+<td>0.001694</td>
 </tr>
 </tbody>
 </table>
@@ -1017,14 +1017,14 @@ Variable Definitions
 <h3 class="anchored" data-anchor-id="differences-between-match-rates">Differences between Match Rates</h3>
 <p>Next, I assess the effectiveness of different sizes of matched donations on the response rate.</p>
 <p>Using t-tests, I find no statistically significant difference in response rates between the 1:1 and 2:1 match groups, nor between 2:1 and 3:1. This supports the authors’ observation that “increasing the match ratio above 1:1 does not further increase the probability that an individual gives.”</p>
-<div id="78a0d08c" class="cell" data-execution_count="7">
+<div id="89fc5718" class="cell" data-execution_count="7">
 <div class="cell-output cell-output-stdout">
 <pre><code>1:1 vs 2:1: TtestResult(statistic=0.0, pvalue=1.0, df=22264.0)
 2:1 vs 3:1: TtestResult(statistic=0.0, pvalue=1.0, df=22264.0)</code></pre>
 </div>
 </div>
 <p>In a regression of ‘gave ~ ratio1 + ratio2 + ratio3’, the coefficients are not statistically different from each other. Manually computing response rate differences from the data confirms this: the increase from 1:1 to 2:1 is about 0.0003, and from 2:1 to 3:1 is about -0.0002.</p>
-<div id="e3e4d00d" class="cell" data-execution_count="8">
+<div id="84cdd7c6" class="cell" data-execution_count="8">
 <div class="cell-output cell-output-display" data-execution_count="8">
 <table class="simpletable caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <caption>OLS Regression Results</caption>
@@ -1055,19 +1055,19 @@ Variable Definitions
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">Time:</td>
-<td>16:46:29</td>
+<td>16:50:37</td>
 <td data-quarto-table-cell-role="th">Log-Likelihood:</td>
-<td>16688.</td>
+<td>16687.</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">No. Observations:</td>
-<td>33396</td>
+<td>33395</td>
 <td data-quarto-table-cell-role="th">AIC:</td>
 <td>-3.337e+04</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">Df Residuals:</td>
-<td>33392</td>
+<td>33391</td>
 <td data-quarto-table-cell-role="th">BIC:</td>
 <td>-3.333e+04</td>
 </tr>
@@ -1100,39 +1100,39 @@ Variable Definitions
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">Intercept</td>
-<td>-1.597e+09</td>
-<td>3.43e+11</td>
-<td>-0.005</td>
-<td>0.996</td>
-<td>-6.74e+11</td>
-<td>6.7e+11</td>
+<td>-1.003e+10</td>
+<td>3.36e+11</td>
+<td>-0.030</td>
+<td>0.976</td>
+<td>-6.68e+11</td>
+<td>6.48e+11</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">ratio1</td>
-<td>1.597e+09</td>
-<td>3.43e+11</td>
-<td>0.005</td>
-<td>0.996</td>
-<td>-6.7e+11</td>
-<td>6.74e+11</td>
+<td>1.003e+10</td>
+<td>3.36e+11</td>
+<td>0.030</td>
+<td>0.976</td>
+<td>-6.48e+11</td>
+<td>6.68e+11</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">ratio2</td>
-<td>1.597e+09</td>
-<td>3.43e+11</td>
-<td>0.005</td>
-<td>0.996</td>
-<td>-6.7e+11</td>
-<td>6.74e+11</td>
+<td>1.003e+10</td>
+<td>3.36e+11</td>
+<td>0.030</td>
+<td>0.976</td>
+<td>-6.48e+11</td>
+<td>6.68e+11</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">ratio3</td>
-<td>1.597e+09</td>
-<td>3.43e+11</td>
-<td>0.005</td>
-<td>0.996</td>
-<td>-6.7e+11</td>
-<td>6.74e+11</td>
+<td>1.003e+10</td>
+<td>3.36e+11</td>
+<td>0.030</td>
+<td>0.976</td>
+<td>-6.48e+11</td>
+<td>6.68e+11</td>
 </tr>
 </tbody>
 </table>
@@ -1142,7 +1142,7 @@ Variable Definitions
 <tbody>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">Omnibus:</td>
-<td>38963.962</td>
+<td>38962.316</td>
 <td data-quarto-table-cell-role="th">Durbin-Watson:</td>
 <td>1.995</td>
 </tr>
@@ -1150,7 +1150,7 @@ Variable Definitions
 <td data-quarto-table-cell-role="th">Prob(Omnibus):</td>
 <td>0.000</td>
 <td data-quarto-table-cell-role="th">Jarque-Bera (JB):</td>
-<td>2506480.093</td>
+<td>2506231.912</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">Skew:</td>
@@ -1160,13 +1160,13 @@ Variable Definitions
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">Kurtosis:</td>
-<td>43.394</td>
+<td>43.393</td>
 <td data-quarto-table-cell-role="th">Cond. No.</td>
-<td>9.86e+14</td>
+<td>9.65e+14</td>
 </tr>
 </tbody>
 </table>
-<br><br>Notes:<br>[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.<br>[2] The smallest eigenvalue is 4.58e-26. This might indicate that there are<br>strong multicollinearity problems or that the design matrix is singular.
+<br><br>Notes:<br>[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.<br>[2] The smallest eigenvalue is 4.78e-26. This might indicate that there are<br>strong multicollinearity problems or that the design matrix is singular.
 </div>
 </div>
 <p>Conclusion: Higher match ratios do not significantly increase the probability of giving, confirming that simply including a match matters more than its size.</p>
@@ -1175,7 +1175,7 @@ Variable Definitions
 <h3 class="anchored" data-anchor-id="size-of-charitable-contribution">Size of Charitable Contribution</h3>
 <p>In this subsection, I analyze the effect of the size of matched donation on the size of the charitable contribution.</p>
 <p>A regression of ‘amount ~ treatment’ shows a small, positive, and statistically significant effect of treatment on donation amount. However, when restricting to individuals who actually donated (‘gave == 1’), the coefficient becomes smaller and statistically insignificant.</p>
-<div id="ff2c3182" class="cell" data-execution_count="9">
+<div id="71460ce3" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>model_amt <span class="op">=</span> smf.ols(<span class="st">'amount ~ treatment'</span>, data<span class="op">=</span>df).fit()</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>model_amt.summary()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="9">
@@ -1198,7 +1198,7 @@ Variable Definitions
 <td data-quarto-table-cell-role="th">Method:</td>
 <td>Least Squares</td>
 <td data-quarto-table-cell-role="th">F-statistic:</td>
-<td>3.461</td>
+<td>3.463</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">Date:</td>
@@ -1208,19 +1208,19 @@ Variable Definitions
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">Time:</td>
-<td>16:46:29</td>
+<td>16:50:37</td>
 <td data-quarto-table-cell-role="th">Log-Likelihood:</td>
 <td>-1.7946e+05</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">No. Observations:</td>
-<td>50083</td>
+<td>50082</td>
 <td data-quarto-table-cell-role="th">AIC:</td>
 <td>3.589e+05</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">Df Residuals:</td>
-<td>50081</td>
+<td>50080</td>
 <td data-quarto-table-cell-role="th">BIC:</td>
 <td>3.589e+05</td>
 </tr>
@@ -1277,7 +1277,7 @@ Variable Definitions
 <tbody>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">Omnibus:</td>
-<td>96861.113</td>
+<td>96858.715</td>
 <td data-quarto-table-cell-role="th">Durbin-Watson:</td>
 <td>2.008</td>
 </tr>
@@ -1285,17 +1285,17 @@ Variable Definitions
 <td data-quarto-table-cell-role="th">Prob(Omnibus):</td>
 <td>0.000</td>
 <td data-quarto-table-cell-role="th">Jarque-Bera (JB):</td>
-<td>240735713.635</td>
+<td>240721274.363</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">Skew:</td>
-<td>15.297</td>
+<td>15.296</td>
 <td data-quarto-table-cell-role="th">Prob(JB):</td>
 <td>0.00</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">Kurtosis:</td>
-<td>341.269</td>
+<td>341.262</td>
 <td data-quarto-table-cell-role="th">Cond. No.</td>
 <td>3.23</td>
 </tr>
@@ -1305,11 +1305,11 @@ Variable Definitions
 </div>
 </div>
 <p>Histograms of donation amounts for the control and treatment groups (among givers only) show similar distributions, with nearly identical sample means.</p>
-<div id="bbdaa3da" class="cell" data-execution_count="10">
+<div id="c39996d2" class="cell" data-execution_count="10">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="hw1_files/figure-html/cell-11-output-1.png" width="1142" height="469" class="figure-img"></p>
+<p><img src="hw1_files/figure-html/cell-11-output-1.png" width="950" height="469" class="figure-img"></p>
 </figure>
 </div>
 </div>
@@ -1326,7 +1326,7 @@ Variable Definitions
 <h3 class="anchored" data-anchor-id="law-of-large-numbers">Law of Large Numbers</h3>
 <p>I simulated 100,000 draws from the control distribution and 10,000 from the treatment distribution. I then computed 10,000 differences and plotted their cumulative average.</p>
 <p>The plot shows the cumulative average stabilizing around the true difference (0.004), consistent with the Law of Large Numbers: as sample size increases, the sample mean converges to the true mean.</p>
-<div id="25ce6c66" class="cell" data-execution_count="11">
+<div id="30a74da1" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>control <span class="op">=</span> np.random.binomial(<span class="dv">1</span>, <span class="fl">0.018</span>, <span class="dv">100000</span>)</span>
@@ -1344,7 +1344,7 @@ Variable Definitions
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="hw1_files/figure-html/cell-12-output-1.png" width="609" height="449" class="figure-img"></p>
+<p><img src="hw1_files/figure-html/cell-12-output-1.png" width="597" height="449" class="figure-img"></p>
 </figure>
 </div>
 </div>
@@ -1355,11 +1355,11 @@ Variable Definitions
 <p>I ran simulations with sample sizes of 50, 200, 500, and 1000. For each size, I drew 1000 samples and computed the difference in means. The resulting histograms become increasingly normal and concentrated as sample size increases.</p>
 <p>In small samples, the distribution is wide and skewed. At larger sizes, it becomes bell-shaped and centered near the true difference. Zero clearly moves from being in the middle (in small samples) to being in the tail (in larger samples).</p>
 <p>This demonstrates the Central Limit Theorem: the sampling distribution of the mean difference becomes approximately normal as sample size increases.</p>
-<div id="b1d3405a" class="cell" data-execution_count="12">
+<div id="d887a279" class="cell" data-execution_count="12">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="hw1_files/figure-html/cell-13-output-1.png" width="1142" height="757" class="figure-img"></p>
+<p><img src="hw1_files/figure-html/cell-13-output-1.png" width="950" height="469" class="figure-img"></p>
 </figure>
 </div>
 </div>

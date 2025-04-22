@@ -140,6 +140,7 @@ A barplot comparing the response rates between groups shows that the treatment g
 ```{python}
 #| echo: false
 import matplotlib.pyplot as plt
+df = df[df['mrm2'].notnull()] 
 response_rates = df.groupby('treatment')['gave'].mean()
 response_rates.plot(kind='bar', color=['gray', 'green'])
 plt.xticks([0, 1], ['Control', 'Treatment'])
@@ -213,7 +214,7 @@ Histograms of donation amounts for the control and treatment groups (among giver
 df_pos = df[df['gave'] == 1]
 model_cond = smf.ols('amount ~ treatment', data=df_pos).fit()
 model_cond.summary()
-fig, axes = plt.subplots(1, 2, figsize=(12, 5), sharey=True)
+fig, axes = plt.subplots(1, 2, figsize=(10, 5), sharey=True)
 
 control_amt = df_pos[df_pos['treatment'] == 0]['amount']
 treat_amt = df_pos[df_pos['treatment'] == 1]['amount']
@@ -276,7 +277,7 @@ def simulate_diff(n):
     return [np.random.binomial(1, 0.022, n).mean() - np.random.binomial(1, 0.018, n).mean() for _ in range(1000)]
 
 sample_sizes = [50, 200, 500, 1000]
-fig, axes = plt.subplots(2, 2, figsize=(12, 8))
+fig, axes = plt.subplots(2, 2, figsize=(10,5))
 
 for ax, n in zip(axes.flatten(), sample_sizes):
     data = simulate_diff(n)
