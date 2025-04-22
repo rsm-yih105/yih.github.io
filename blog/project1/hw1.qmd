@@ -114,6 +114,7 @@ To test the integrity of the randomization, I compare pre-treatment characterist
 ```{python}
 from scipy.stats import ttest_ind
 import statsmodels.formula.api as smf
+df = df[df['mrm2'].notnull()] 
 # Subset the variable to compare
 treat = df[df['treatment'] == 1]['mrm2']
 control = df[df['treatment'] == 0]['mrm2']
@@ -140,7 +141,6 @@ A barplot comparing the response rates between groups shows that the treatment g
 ```{python}
 #| echo: false
 import matplotlib.pyplot as plt
-df = df[df['mrm2'].notnull()] 
 response_rates = df.groupby('treatment')['gave'].mean()
 response_rates.plot(kind='bar', color=['gray', 'green'])
 plt.xticks([0, 1], ['Control', 'Treatment'])

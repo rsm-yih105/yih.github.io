@@ -232,7 +232,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="description" class="level3">
 <h3 class="anchored" data-anchor-id="description">Description</h3>
 <p>The dataset consists of one row per previous donor who received a fundraising letter. Key variables include whether the individual received a treatment letter or not (‘treatment’), the size of the matching ratio (‘ratio’), and donation outcomes (‘gave’, ‘amount’). It also includes demographic and behavioral variables such as prior donation frequency (freq), recency (‘mrm2’), and location-level characteristics (e.g., ‘red0’, ‘pwhite’).</p>
-<div id="4489f443" class="cell" data-execution_count="1">
+<div id="bfc6527f" class="cell" data-execution_count="1">
 <div class="cell-output cell-output-display" data-execution_count="1">
 <div>
 
@@ -630,21 +630,22 @@ Variable Definitions
 <h3 class="anchored" data-anchor-id="balance-test">Balance Test</h3>
 <p>As an ad hoc test of the randomization mechanism, I provide a series of tests that compare aspects of the treatment and control groups to assess whether they are statistically significantly different from one another.</p>
 <p>To test the integrity of the randomization, I compare pre-treatment characteristics such as ‘mrm2’, ‘female’, and ‘freq’ between the treatment and control groups.</p>
-<div id="0a6312f3" class="cell" data-execution_count="2">
+<div id="84e1b855" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> ttest_ind</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.formula.api <span class="im">as</span> smf</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Subset the variable to compare</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>treat <span class="op">=</span> df[df[<span class="st">'treatment'</span>] <span class="op">==</span> <span class="dv">1</span>][<span class="st">'mrm2'</span>]</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>control <span class="op">=</span> df[df[<span class="st">'treatment'</span>] <span class="op">==</span> <span class="dv">0</span>][<span class="st">'mrm2'</span>]</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># T-test</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>t_stat, p_val <span class="op">=</span> ttest_ind(treat, control, equal_var<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"T-test: t = </span><span class="sc">{</span>t_stat<span class="sc">:.3f}</span><span class="ss">, p = </span><span class="sc">{</span>p_val<span class="sc">:.3f}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df[df[<span class="st">'mrm2'</span>].notnull()] </span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Subset the variable to compare</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>treat <span class="op">=</span> df[df[<span class="st">'treatment'</span>] <span class="op">==</span> <span class="dv">1</span>][<span class="st">'mrm2'</span>]</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>control <span class="op">=</span> df[df[<span class="st">'treatment'</span>] <span class="op">==</span> <span class="dv">0</span>][<span class="st">'mrm2'</span>]</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># T-test</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>t_stat, p_val <span class="op">=</span> ttest_ind(treat, control, equal_var<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"T-test: t = </span><span class="sc">{</span>t_stat<span class="sc">:.3f}</span><span class="ss">, p = </span><span class="sc">{</span>p_val<span class="sc">:.3f}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>T-test: t = nan, p = nan</code></pre>
+<pre><code>T-test: t = 0.120, p = 0.905</code></pre>
 </div>
 </div>
 <p>Using both Welch’s t-tests and bivariate regressions, I confirm that none of the selected covariates are statistically significantly different at the 5% level. These results match Table 1 of Karlan and List (2007), indicating that the treatment was successfully randomized and there are no meaningful pre-treatment differences.</p>
-<div id="0aa69339" class="cell" data-execution_count="3">
+<div id="6175a542" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> smf.ols(<span class="st">'mrm2 ~ treatment'</span>, data<span class="op">=</span>df).fit()</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>model.summary()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="3">
@@ -677,7 +678,7 @@ Variable Definitions
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">Time:</td>
-<td>16:50:36</td>
+<td>16:54:51</td>
 <td data-quarto-table-cell-role="th">Log-Likelihood:</td>
 <td>-1.9585e+05</td>
 </tr>
@@ -781,7 +782,7 @@ Variable Definitions
 <h3 class="anchored" data-anchor-id="charitable-contribution-made">Charitable Contribution Made</h3>
 <p>First, I analyze whether matched donations lead to an increased response rate of making a donation.</p>
 <p>A barplot comparing the response rates between groups shows that the treatment group had a higher donation rate than the control group.</p>
-<div id="93288754" class="cell" data-execution_count="4">
+<div id="1c22e7e3" class="cell" data-execution_count="4">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -791,7 +792,7 @@ Variable Definitions
 </div>
 </div>
 <p>A Welch’s t-test confirms this difference is statistically significant (p &lt; 0.01), and a bivariate linear regression of ‘gave ~ treatment’ returns a positive and significant coefficient. This matches the finding in Table 2a, Panel A.</p>
-<div id="8e9cf709" class="cell" data-execution_count="5">
+<div id="1b3cf685" class="cell" data-execution_count="5">
 <div class="cell-output cell-output-stdout">
 <pre><code>T-test on 'gave': t = 3.2099, p = 0.0013</code></pre>
 </div>
@@ -825,7 +826,7 @@ Variable Definitions
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">Time:</td>
-<td>16:50:36</td>
+<td>16:54:51</td>
 <td data-quarto-table-cell-role="th">Log-Likelihood:</td>
 <td>26629.</td>
 </tr>
@@ -922,7 +923,7 @@ Variable Definitions
 </div>
 </div>
 <p>A probit regression, as shown in Table 3 Column 1 of the original study, confirms that being in the treatment group significantly increases the probability of donating. The coefficient on treatment is around 0.325, and statistically significant at the 1% level.</p>
-<div id="39cac78a" class="cell" data-execution_count="6">
+<div id="e6e3acac" class="cell" data-execution_count="6">
 <div class="cell-output cell-output-stdout">
 <pre><code>Optimization terminated successfully.
          Current function value: 0.100445
@@ -958,7 +959,7 @@ Variable Definitions
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">Time:</td>
-<td>16:50:37</td>
+<td>16:54:52</td>
 <td data-quarto-table-cell-role="th">Log-Likelihood:</td>
 <td>-5030.5</td>
 </tr>
@@ -1017,14 +1018,14 @@ Variable Definitions
 <h3 class="anchored" data-anchor-id="differences-between-match-rates">Differences between Match Rates</h3>
 <p>Next, I assess the effectiveness of different sizes of matched donations on the response rate.</p>
 <p>Using t-tests, I find no statistically significant difference in response rates between the 1:1 and 2:1 match groups, nor between 2:1 and 3:1. This supports the authors’ observation that “increasing the match ratio above 1:1 does not further increase the probability that an individual gives.”</p>
-<div id="89fc5718" class="cell" data-execution_count="7">
+<div id="9c1f5406" class="cell" data-execution_count="7">
 <div class="cell-output cell-output-stdout">
 <pre><code>1:1 vs 2:1: TtestResult(statistic=0.0, pvalue=1.0, df=22264.0)
 2:1 vs 3:1: TtestResult(statistic=0.0, pvalue=1.0, df=22264.0)</code></pre>
 </div>
 </div>
 <p>In a regression of ‘gave ~ ratio1 + ratio2 + ratio3’, the coefficients are not statistically different from each other. Manually computing response rate differences from the data confirms this: the increase from 1:1 to 2:1 is about 0.0003, and from 2:1 to 3:1 is about -0.0002.</p>
-<div id="84cdd7c6" class="cell" data-execution_count="8">
+<div id="a486c943" class="cell" data-execution_count="8">
 <div class="cell-output cell-output-display" data-execution_count="8">
 <table class="simpletable caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <caption>OLS Regression Results</caption>
@@ -1055,7 +1056,7 @@ Variable Definitions
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">Time:</td>
-<td>16:50:37</td>
+<td>16:54:52</td>
 <td data-quarto-table-cell-role="th">Log-Likelihood:</td>
 <td>16687.</td>
 </tr>
@@ -1175,7 +1176,7 @@ Variable Definitions
 <h3 class="anchored" data-anchor-id="size-of-charitable-contribution">Size of Charitable Contribution</h3>
 <p>In this subsection, I analyze the effect of the size of matched donation on the size of the charitable contribution.</p>
 <p>A regression of ‘amount ~ treatment’ shows a small, positive, and statistically significant effect of treatment on donation amount. However, when restricting to individuals who actually donated (‘gave == 1’), the coefficient becomes smaller and statistically insignificant.</p>
-<div id="71460ce3" class="cell" data-execution_count="9">
+<div id="50758bd7" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>model_amt <span class="op">=</span> smf.ols(<span class="st">'amount ~ treatment'</span>, data<span class="op">=</span>df).fit()</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>model_amt.summary()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="9">
@@ -1208,7 +1209,7 @@ Variable Definitions
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">Time:</td>
-<td>16:50:37</td>
+<td>16:54:52</td>
 <td data-quarto-table-cell-role="th">Log-Likelihood:</td>
 <td>-1.7946e+05</td>
 </tr>
@@ -1305,7 +1306,7 @@ Variable Definitions
 </div>
 </div>
 <p>Histograms of donation amounts for the control and treatment groups (among givers only) show similar distributions, with nearly identical sample means.</p>
-<div id="c39996d2" class="cell" data-execution_count="10">
+<div id="42efc26a" class="cell" data-execution_count="10">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -1326,7 +1327,7 @@ Variable Definitions
 <h3 class="anchored" data-anchor-id="law-of-large-numbers">Law of Large Numbers</h3>
 <p>I simulated 100,000 draws from the control distribution and 10,000 from the treatment distribution. I then computed 10,000 differences and plotted their cumulative average.</p>
 <p>The plot shows the cumulative average stabilizing around the true difference (0.004), consistent with the Law of Large Numbers: as sample size increases, the sample mean converges to the true mean.</p>
-<div id="30a74da1" class="cell" data-execution_count="11">
+<div id="95ac8726" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>control <span class="op">=</span> np.random.binomial(<span class="dv">1</span>, <span class="fl">0.018</span>, <span class="dv">100000</span>)</span>
@@ -1344,7 +1345,7 @@ Variable Definitions
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="hw1_files/figure-html/cell-12-output-1.png" width="597" height="449" class="figure-img"></p>
+<p><img src="hw1_files/figure-html/cell-12-output-1.png" width="609" height="449" class="figure-img"></p>
 </figure>
 </div>
 </div>
@@ -1355,7 +1356,7 @@ Variable Definitions
 <p>I ran simulations with sample sizes of 50, 200, 500, and 1000. For each size, I drew 1000 samples and computed the difference in means. The resulting histograms become increasingly normal and concentrated as sample size increases.</p>
 <p>In small samples, the distribution is wide and skewed. At larger sizes, it becomes bell-shaped and centered near the true difference. Zero clearly moves from being in the middle (in small samples) to being in the tail (in larger samples).</p>
 <p>This demonstrates the Central Limit Theorem: the sampling distribution of the mean difference becomes approximately normal as sample size increases.</p>
-<div id="d887a279" class="cell" data-execution_count="12">
+<div id="6039cd5a" class="cell" data-execution_count="12">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
