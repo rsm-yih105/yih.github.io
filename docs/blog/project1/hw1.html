@@ -124,6 +124,10 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#description" id="toc-description" class="nav-link" data-scroll-target="#description">Description</a></li>
   <li><a href="#balance-test" id="toc-balance-test" class="nav-link" data-scroll-target="#balance-test">Balance Test</a></li>
   </ul></li>
+  <li><a href="#example-variable-months-since-last-donation" id="toc-example-variable-months-since-last-donation" class="nav-link" data-scroll-target="#example-variable-months-since-last-donation">Example variable: months since last donation</a></li>
+  <li><a href="#t-test" id="toc-t-test" class="nav-link" data-scroll-target="#t-test">T-test</a></li>
+  <li><a href="#linear-regression" id="toc-linear-regression" class="nav-link" data-scroll-target="#linear-regression">Linear regression</a>
+  <ul class="collapse">
   <li><a href="#experimental-results" id="toc-experimental-results" class="nav-link" data-scroll-target="#experimental-results">Experimental Results</a>
   <ul class="collapse">
   <li><a href="#charitable-contribution-made" id="toc-charitable-contribution-made" class="nav-link" data-scroll-target="#charitable-contribution-made">Charitable Contribution Made</a></li>
@@ -134,6 +138,7 @@ ul.task-list li input[type="checkbox"] {
   <ul class="collapse">
   <li><a href="#law-of-large-numbers" id="toc-law-of-large-numbers" class="nav-link" data-scroll-target="#law-of-large-numbers">Law of Large Numbers</a></li>
   <li><a href="#central-limit-theorem" id="toc-central-limit-theorem" class="nav-link" data-scroll-target="#central-limit-theorem">Central Limit Theorem</a></li>
+  </ul></li>
   </ul></li>
   </ul>
 </nav>
@@ -433,9 +438,20 @@ Variable Definitions
 <h3 class="anchored" data-anchor-id="balance-test">Balance Test</h3>
 <p>As an ad hoc test of the randomization mechanism, I provide a series of tests that compare aspects of the treatment and control groups to assess whether they are statistically significantly different from one another.</p>
 <p>To test the integrity of the randomization, I compare pre-treatment characteristics such as ‘mrm2’, ‘female’, and ‘freq’ between the treatment and control groups.</p>
-<p>Using both Welch’s t-tests and bivariate regressions, I confirm that none of the selected covariates are statistically significantly different at the 5% level. These results match Table 1 of Karlan and List (2007), indicating that the treatment was successfully randomized and there are no meaningful pre-treatment differences.</p>
+<p>Using both Welch’s t-tests and bivariate regressions, I confirm that none of the selected covariates are statistically significantly different at the 5% level. These results match Table 1 of Karlan and List (2007), indicating that the treatment was successfully randomized and there are no meaningful pre-treatment differences. import statsmodels.formula.api as smf from scipy.stats import ttest_ind</p>
 </section>
 </section>
+<section id="example-variable-months-since-last-donation" class="level1">
+<h1>Example variable: months since last donation</h1>
+<p>treat = df[df[‘treatment’] == 1][‘mrm2’] control = df[df[‘treatment’] == 0][‘mrm2’]</p>
+</section>
+<section id="t-test" class="level1">
+<h1>T-test</h1>
+<p>t_stat, p_val = ttest_ind(treat, control, equal_var=False) print(f”T-test: t = {t_stat:.3f}, p = {p_val:.3f}“)</p>
+</section>
+<section id="linear-regression" class="level1">
+<h1>Linear regression</h1>
+<p>model = smf.ols(‘mrm2 ~ treatment’, data=df).fit() model.summary()</p>
 <section id="experimental-results" class="level2">
 <h2 class="anchored" data-anchor-id="experimental-results">Experimental Results</h2>
 <section id="charitable-contribution-made" class="level3">
@@ -478,6 +494,7 @@ Variable Definitions
 <p>This demonstrates the Central Limit Theorem: the sampling distribution of the mean difference becomes approximately normal as sample size increases.</p>
 
 
+</section>
 </section>
 </section>
 
