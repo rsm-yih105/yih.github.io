@@ -118,9 +118,10 @@ df = df[df['mrm2'].notnull()]
 # Subset the variable to compare
 treat = df[df['treatment'] == 1]['mrm2']
 control = df[df['treatment'] == 0]['mrm2']
+coef = treat.mean()-control.mean()
 # T-test
 t_stat, p_val = ttest_ind(treat, control, equal_var=False)
-print(f"T-test: t = {t_stat:.3f}, p = {p_val:.3f}")
+print(f"T-test: t = {t_stat:.3f}, p = {p_val:.3f},corf = {coef:.3f}")
 ```
 
 Using both Welch's t-tests and bivariate regressions, I confirm that none of the selected covariates are statistically significantly different at the 5% level. These results match Table 1 of Karlan and List (2007), indicating that the treatment was successfully randomized and there are no meaningful pre-treatment differences.
@@ -185,7 +186,7 @@ gave_3 = df[(df['treatment'] == 1) & (df['ratio'] == 1)]['gave']
 print("1:1 vs 2:1:", ttest_ind(gave_1, gave_2, equal_var=False))
 print("2:1 vs 3:1:", ttest_ind(gave_2, gave_3, equal_var=False))
 ```
-In a regression of 'gave ~ ratio1 + ratio2 + ratio3', the coefficients are not statistically different from each other. Manually computing response rate differences from the data confirms this: the increase from 1:1 to 2:1 is about 0.0003, and from 2:1 to 3:1 is about -0.0002.
+In a regression of 'gave ~ ratio2 + ratio3', the coefficients are not statistically different from each other. Manually computing response rate differences from the data confirms this: the increase from 1:1 to 2:1 is about 0.0003, and from 2:1 to 3:1 is about -0.0002.
 ```{python}
 #| echo: false
 df_ratio = df[df['treatment'] == 1].copy()
@@ -193,7 +194,7 @@ df_ratio['ratio1'] = (df_ratio['ratio'] == 1).astype(int)
 df_ratio['ratio2'] = (df_ratio['ratio'] == 2).astype(int)
 df_ratio['ratio3'] = (df_ratio['ratio'] == 3).astype(int)
 
-model = smf.ols('gave ~ ratio1 + ratio2 + ratio3', data=df_ratio).fit()
+model = smf.ols('gave ~ ratio2 + ratio3', data=df_ratio).fit()
 model.summary()
 ```
 Conclusion: Higher match ratios do not significantly increase the probability of giving, confirming that simply including a match matters more than its size.
@@ -214,7 +215,7 @@ Histograms of donation amounts for the control and treatment groups (among giver
 df_pos = df[df['gave'] == 1]
 model_cond = smf.ols('amount ~ treatment', data=df_pos).fit()
 model_cond.summary()
-fig, axes = plt.subplots(1, 2, figsize=(10, 5), sharey=True)
+fig, axes = plt.subplots(1, 2, figsize=(9, 3), sharey=True)
 
 control_amt = df_pos[df_pos['treatment'] == 0]['amount']
 treat_amt = df_pos[df_pos['treatment'] == 1]['amount']
@@ -277,7 +278,7 @@ def simulate_diff(n):
     return [np.random.binomial(1, 0.022, n).mean() - np.random.binomial(1, 0.018, n).mean() for _ in range(1000)]
 
 sample_sizes = [50, 200, 500, 1000]
-fig, axes = plt.subplots(2, 2, figsize=(10,5))
+fig, axes = plt.subplots(2, 2, figsize=(10,7))
 
 for ax, n in zip(axes.flatten(), sample_sizes):
     data = simulate_diff(n)
